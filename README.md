@@ -1,4 +1,4 @@
-# gsfw-rebirth-v1.0
+# gs-springboot-base-v1.0
 springboot框架基础包及Sample  
 java17  
 springboot3  
