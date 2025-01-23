@@ -13,6 +13,7 @@ springboot3
 7.JWT  
 8.基于注解的验证规则示例  
 9.增删改查demo  
+10.dbunit  
 
 # shell介绍
 compile.sh clean后编译项目  
