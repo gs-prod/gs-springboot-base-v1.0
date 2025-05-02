@@ -12,6 +12,7 @@ import com.gs.service.intf.DemoUserService;
 import com.gs.utils.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,7 +47,13 @@ public class LoginController {
 
     @Operation(summary = "user login")
     @PostMapping(value = "/login")
-    public R login(@Validated @RequestBody DemoUserLoginRequestDTO demoUserLoginRequestDTO) {
+    public R login(@Validated @RequestBody DemoUserLoginRequestDTO demoUserLoginRequestDTO,
+                   HttpServletRequest request) {
+
+        String sessionCaptcha = (String) request.getSession().getAttribute("captcha");
+        if (sessionCaptcha == null || !sessionCaptcha.equalsIgnoreCase(demoUserLoginRequestDTO.getCode())) {
+            return R.error(CodeEnum.IS_FAIL.getCode(), "验证码错误");
+        }
 
         DemoUser demoUser = demoUserService.login(demoUserLoginRequestDTO);
 

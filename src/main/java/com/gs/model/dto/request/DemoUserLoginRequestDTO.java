@@ -15,4 +15,8 @@ public class DemoUserLoginRequestDTO {
     @NotBlank(message = "密码不能为空")
     @Schema(name = "password", description = "密码", example = "")
     private String password;
+
+    @NotBlank(message = "验证码不能为空")
+    @Schema(name = "code", description = "验证码", example = "")
+    private String code;
 }
