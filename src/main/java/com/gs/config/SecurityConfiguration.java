@@ -21,43 +21,47 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
 
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+	@Autowired
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Autowired
-    private AuthenticationProvider authenticationProvider;
+	@Autowired
+	private AuthenticationProvider authenticationProvider;
 
-    private static final String[] WHITE_LIST_URL = {
-            "/v2/api-docs",
-            "/v3/api-docs",
-            "/v3/api-docs/**",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui/**",
-            "/swagger-ui.html/**",
-            "/webjars/**",
-            "/error", // Prevents all exceptions after integrating Spring Security from reporting 403
-            "/api/login",
-            "api/captcha"
-    };
+	private static final String[] WHITE_LIST_URL = {
+			"/v2/api-docs",
+			"/v3/api-docs",
+			"/v3/api-docs/**",
+			"/swagger-resources",
+			"/swagger-resources/**",
+			"/configuration/ui",
+			"/configuration/security",
+			"/swagger-ui/**",
+			"/swagger-ui.html/**",
+			"/webjars/**",
+			"/error", // Prevents all exceptions after integrating Spring Security from reporting 403
+			"/api/login",
+			"api/captcha",
+			"/api/payments/native/prepay",
+			"/api/payments/jsapi/prepay",
+			"/api/payments/notify/native",
+			"/api/wechat/openid"
+	};
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(req ->
-                        req.requestMatchers(WHITE_LIST_URL)
-                                .permitAll()
-                                .anyRequest()
-                                .authenticated()
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-        ;
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http
+				.csrf(AbstractHttpConfigurer::disable)
+				.authorizeHttpRequests(req ->
+						req.requestMatchers(WHITE_LIST_URL)
+							.permitAll()
+							.anyRequest()
+							.authenticated()
+				)
+				.sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+				.authenticationProvider(authenticationProvider)
+				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+		;
 
-        return http.build();
-    }
+		return http.build();
+	}
 }

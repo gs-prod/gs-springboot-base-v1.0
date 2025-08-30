@@ -4,10 +4,10 @@ spring:
   datasource:
    db1: # 数据源1
     # mysql数据源配置例
-    url: jdbc:mysql://localhost:3306/gs?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3306/yuechuang?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
     jdbc-url: ${spring.datasource.db1.url}
     username: root
-    password: 123456
+    password:
 #   db2: # 数据源2
 #     # postgre数据源配置例
 #     url: jdbc:postgresql://localhost:5432/gs
@@ -31,3 +31,11 @@ spring:
       ddl-auto: none
       format_sql: false
     show-sql: true  #日志中显示sql语句
+
+wxpay:
+  merchant-id: 1725430742
+  merchant-serial-number: 551AF38CBF5B50E396334E47B6F2ED3AF9962034
+  private-key-path: C:\Users\WZL\Desktop\code\悦创\1725430742_20250826_cert\keys\apiclient_key.pem
+  api-v3-key: BeckhaM1981121119811211198112111
+  app-id: wx17871fa309534443
+  app-secret: 90b99ba25b760ed820ad5810c2c2d43f
